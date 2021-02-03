@@ -17,7 +17,7 @@ app.get("/video", function (req, res) {
       res.status(400).send("Requires Range header");
     }
   
-    // get video stats (about 61MB)
+    // get video stats 
     const videoPath = "sample.mp4";
     const videoSize = fs.statSync("sample.mp4").size;
   
