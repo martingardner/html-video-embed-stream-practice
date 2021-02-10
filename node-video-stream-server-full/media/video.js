@@ -1,16 +1,15 @@
 const fs = require("fs");
 const path = require("path");
 
-
 module.exports.videoStream = (req, res, videoInfo) => {
     const range = req.headers.range;
 
     if (!range || videoInfo.fileName.length <= 0 || videoInfo.format.length <= 0) {
       res.status(400).send("Requires Range header");
     }
-    console.log('videoInfo', videoInfo);
-    const videoName = `${videoInfo.fileName}.${videoInfo.format}`;
-    // get video stats 
+
+    // get video stats
+    const videoName = `${videoInfo.fileName}.${videoInfo.format}`; 
     const videoPath = path.resolve(__dirname, videoName);
     const videoSize = fs.statSync(videoPath).size;
     

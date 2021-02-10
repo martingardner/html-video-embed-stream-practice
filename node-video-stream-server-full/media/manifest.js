@@ -4,8 +4,6 @@ const manifest = [
 ];
 
 module.exports.getVideoInformation = (id) => {
-    console.log('id', id);
     const index = manifest.findIndex( (i) => i.id == id);
-    console.log('index', index);
     return manifest[index];
 }
