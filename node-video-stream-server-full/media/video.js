@@ -1,27 +1,19 @@
-const express = require("express");
 const fs = require("fs");
-const app = express();
+const path = require("path");
 
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
-});
 
-app.listen(8000, function () {
-  console.log("Listening on port 8000!");
-});
-
-app.get("/video", function (req, res) {
-    // Ensure there is a range given for the video
+module.exports.videoStream = (req, res, videoInfo) => {
     const range = req.headers.range;
-    console.log('range', range, req.headers);
-    if (!range) {
+
+    if (!range || videoInfo.fileName.length <= 0 || videoInfo.format.length <= 0) {
       res.status(400).send("Requires Range header");
     }
-  
+    console.log('videoInfo', videoInfo);
+    const videoName = `${videoInfo.fileName}.${videoInfo.format}`;
     // get video stats 
-    const videoPath = "sample.mp4";
-    const videoSize = fs.statSync("sample.mp4").size;
-  
+    const videoPath = path.resolve(__dirname, videoName);
+    const videoSize = fs.statSync(videoPath).size;
+    
     // Parse Range
     // Example: "bytes=32324-"
     const CHUNK_SIZE = 10 ** 6; // 1MB
@@ -41,8 +33,5 @@ app.get("/video", function (req, res) {
     res.writeHead(206, headers);
   
     // create video read stream for this particular chunk
-    const videoStream = fs.createReadStream(videoPath, { start, end });
-  
-    // Stream the video chunk to the client
-    videoStream.pipe(res);
-  });
+    return fs.createReadStream(videoPath, { start, end });
+}

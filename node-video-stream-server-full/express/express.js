@@ -7,4 +7,5 @@ app.listen(__EXPRESS_PORT, ()=> {
 });
 
 module.exports.app = app;
-require('../routes/routes')(app);
+require('../routes/routes-video')(app);
+require('../routes/routes-index')(app);
