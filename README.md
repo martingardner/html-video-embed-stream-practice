@@ -14,5 +14,5 @@
 - node-video-stream-server is a one pager that works as a proof of concept
 - making a more robust version that I can try to use elsewhere.
 - - TODOs
-- - custom error handling messages
+- - custom error handling messages (handled custom error handling, need to think about what I want to do with 404, as express doesn't see those as errors)
 - - unit testing
