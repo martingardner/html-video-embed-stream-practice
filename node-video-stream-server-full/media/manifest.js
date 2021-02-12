@@ -7,3 +7,5 @@ module.exports.getVideoInformation = (id) => {
     const index = manifest.findIndex( (i) => i.id == id);
     return manifest[index];
 }
+
+module.exports.getVideoList = () => manifest
